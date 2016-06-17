@@ -9,7 +9,8 @@ import utils.ConfigReader;
  * Created by apryakhin on 16.06.2016.
  */
 public class OrangeMoleHandler extends TelegramLongPollingBot {
-    protected String botToken;
+    private String botToken;
+
     protected boolean is_multithread = false;
     protected int thread_count = 1;
 
@@ -29,6 +30,8 @@ public class OrangeMoleHandler extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         Message message = update.getMessage();
         if (message != null && message.hasText()) {
+
+
             if (message.getText().equals("/help"))
                 sendOrangeMoleMessage(message, "Привет, я робот");
             else

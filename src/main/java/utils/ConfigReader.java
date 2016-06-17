@@ -17,7 +17,6 @@ public class ConfigReader {
     public ConfigReader(String config_name){
         try {
             String path = new File(".").getCanonicalPath();
-            System.out.println(path);
             String FileSeparator = (String) System.getProperty("file.separator");
 
             StringBuilder sb = new StringBuilder();
@@ -47,11 +46,14 @@ public class ConfigReader {
             configurationMap = new HashMap<String, String>();
 
             for (String line = br.readLine(); line != null; line = br.readLine()) {
-                String[] s = line.split(splitter);
-                if(s.length > 1)
-                    configurationMap.put(s[0], s[1]);
-                else
-                    configurationMap.put(s[0], "1");
+                // all lines started with # marked as comments
+                if(!line.startsWith("#")){
+                    String[] s = line.split(splitter);
+                    if(s.length > 1)
+                        configurationMap.put(s[0], s[1]);
+                    else
+                        configurationMap.put(s[0], "1");
+                }
             }
         }
         catch(FileNotFoundException e){
@@ -72,11 +74,5 @@ public class ConfigReader {
         item = configurationMap.get(key);
 
         return item;
-    }
-
-    public void printConfigurationValues() {
-        for (Map.Entry<String, String> entry: configurationMap.entrySet()) {
-            System.out.println(entry.getKey() + " " + entry.getValue());
-        }
     }
 }

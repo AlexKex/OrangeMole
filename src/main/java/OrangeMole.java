@@ -12,7 +12,6 @@ public class OrangeMole {
 
         try {
             OrangeMoleHandler mole = new OrangeMoleHandler();
-            System.out.println(mole.getBotToken());
             telegramBotsApi.registerBot(mole);
         }
         catch(TelegramApiException e){
