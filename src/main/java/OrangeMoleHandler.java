@@ -10,6 +10,7 @@ import utils.ConfigReader;
  */
 public class OrangeMoleHandler extends TelegramLongPollingBot {
     private String botToken;
+    private String botName;
 
     protected boolean is_multithread = false;
     protected int thread_count = 1;
@@ -21,6 +22,7 @@ public class OrangeMoleHandler extends TelegramLongPollingBot {
         cr.readConfig();
 
         botToken = cr.getConfigurationMapItem("orangemole.token");
+        botName = cr.getConfigurationMapItem("orangemole.name");
     }
 
     /**
@@ -40,7 +42,7 @@ public class OrangeMoleHandler extends TelegramLongPollingBot {
     }
 
     public String getBotUsername() {
-        return "OrangeMoleBot";
+        return botName;
     }
 
     public String getBotToken() {
