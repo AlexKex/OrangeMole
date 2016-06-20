@@ -1,5 +1,7 @@
 package utils;
 
+import utils.configuration.Config;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -14,14 +16,14 @@ public class DataBase {
 
     private DataBase(){
         try {
-            ConfigReader cr = new ConfigReader("orangemole");
-            cr.readConfig();
+            Config c = Config.i();
+            c.addConfig(getClass().getSimpleName().toLowerCase());
 
-            String dbhost = cr.getConfigurationMapItem("db.host");
-            String dbport = cr.getConfigurationMapItem("db.port");
-            String dbname = cr.getConfigurationMapItem("db.name");
-            String dbpass = cr.getConfigurationMapItem("db.pass");
-            String dbuser = cr.getConfigurationMapItem("db.user");
+            String dbhost = c.getConfigurationMapItem("db.host");
+            String dbport = c.getConfigurationMapItem("db.port");
+            String dbname = c.getConfigurationMapItem("db.name");
+            String dbpass = c.getConfigurationMapItem("db.pass");
+            String dbuser = c.getConfigurationMapItem("db.user");
 
             connectionString = "jdbc:mysql://" + dbhost + ":" + dbport + "/" + dbname + "?" + dbuser + "=" + dbpass;
             connection = DriverManager.getConnection(connectionString);

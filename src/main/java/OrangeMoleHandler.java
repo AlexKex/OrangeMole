@@ -3,14 +3,18 @@ import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import utils.ConfigReader;
+import utils.configuration.Config;
 
 /**
  * Created by apryakhin on 16.06.2016.
  */
 public class OrangeMoleHandler extends TelegramLongPollingBot {
+    private final String BOTNAME = "orangemole";
+
     private String botToken;
     private String botName;
+
+    private Config configuration;
 
     protected boolean is_multithread = false;
     protected int thread_count = 1;
@@ -18,11 +22,11 @@ public class OrangeMoleHandler extends TelegramLongPollingBot {
     public OrangeMoleHandler(){
         super();
 
-        ConfigReader cr = new ConfigReader("orangemole");
-        cr.readConfig();
+        configuration = Config.i();
+        configuration.addConfig(BOTNAME);
 
-        botToken = cr.getConfigurationMapItem("orangemole.token");
-        botName = cr.getConfigurationMapItem("orangemole.name");
+        botToken = configuration.getConfigurationMapItem(BOTNAME + ".token");
+        botName = configuration.getConfigurationMapItem(BOTNAME + ".name");
     }
 
     /**
@@ -47,6 +51,10 @@ public class OrangeMoleHandler extends TelegramLongPollingBot {
 
     public String getBotToken() {
         return botToken;
+    }
+
+    public String getBotPath() {
+        return BOTNAME;
     }
 
     private void sendOrangeMoleMessage(Message message, String text){

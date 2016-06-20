@@ -1,20 +1,18 @@
-package utils;
-
-/**
- * Created by apryakhin on 17.06.2016.
- */
+package utils.configuration;
 
 import java.io.*;
 import java.util.HashMap;
-import java.util.Map;
 
-public class ConfigReader {
+/**
+ * Created by apryakhin on 20.06.2016.
+ */
+class ConfigReader {
 
     private HashMap<String, String> configurationMap;
     private String file_path;
     private String splitter = "=";
 
-    public ConfigReader(String config_name){
+    ConfigReader(String config_name){
         try {
             String path = new File(".").getCanonicalPath();
             String FileSeparator = (String) System.getProperty("file.separator");
@@ -30,14 +28,14 @@ public class ConfigReader {
         }
     }
 
-    public void setSplitter(String mySplitter){
+    void setSplitter(String mySplitter){
         splitter = mySplitter;
     }
 
     /**
      * main method for parsing of configuration file
      */
-    public void readConfig(){
+    HashMap<String, String> readConfig(){
         try{
             FileReader reader;
             reader = new FileReader(file_path);
@@ -62,17 +60,7 @@ public class ConfigReader {
         catch (IOException e){
             System.err.println("IOException " + e.getMessage());
         }
-    }
 
-    /**
-     * create a key-value map for parsed values
-     * @param key : key name for lookup
-     * @return String
-     */
-    public String getConfigurationMapItem(String key){
-        String item;
-        item = configurationMap.get(key);
-
-        return item;
+        return configurationMap;
     }
 }
